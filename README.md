@@ -7,7 +7,7 @@
 - [Introduction](#Introduction)
 - [Installation](#Installation)
 - [Holdify](#Holdify)
-- [Installation Options](#InstallationOptions)
+- [Installation Options](#Installation-Options)
 - [APIs and Hooks](#APIs\sand\sHooks)
 
 # Introduction
@@ -82,7 +82,7 @@ compilerModules: [{
 }]
 ```
 
-Install the plugin (details in [Installation Options](#InstallationOptions)):
+Install the plugin (details in [Installation Options](#Installation-Options)):
 
 ```js
 import Vue from 'vue'
@@ -107,7 +107,7 @@ Please refer the [demo project](https://github.com/liyupku2000/vue-component-hol
 
 If the child component is not in "v-for" loop(s), its holdify is pretty straightforward. It only needs to move the child's template from the default slot to the template attribute on the wrapping vue-holder. Within loops, the child component could have multiple mvms and it needs to add some additional attributes on the vue-holder. For example, the "uid" attribute is used to identify different mvms, and the "vars" attribute is for passing local variables to the render function of the mvm. Please try to hodify your components on [Holdify Demo](https://github.com/liyupku2000/vue-component-holder).
 
-# InstallationOptions
+# Installation-Options
 
 **globalHolderMixin**
 
