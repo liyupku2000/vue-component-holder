@@ -2,7 +2,7 @@
   "name": "vue-component-holder",
   "version": "0.0.1",
   "description": "Inject asynchronized hooks on vue components",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liyupku2000/vue-component-holder.git"
