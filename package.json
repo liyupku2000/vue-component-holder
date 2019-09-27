@@ -1,0 +1,31 @@
+{
+  "name": "vue-component-holder",
+  "version": "0.0.1",
+  "description": "Inject asynchronized hooks on vue components",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liyupku2000/vue-component-holder.git"
+  },
+  "keywords": [
+    "vue",
+    "component holder",
+    "managed component",
+    "asynchronized hooks"
+  ],
+  "author": "Yu Li <liyupku2000@gmail.com> (https://github.com/liyupku2000)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liyupku2000/vue-component-holder/issues"
+  },
+  "homepage": "https://github.com/liyupku2000/vue-component-holder",
+  "dependencies": {
+    "change-case": "^3.1.0",
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.1.0",
+    "vue-shortkey": "^3.1.7",
+    "vue-template-compiler": "^2.6.10",
+    "vue-template-es2015-compiler": "^1.9.1"
+  }
+}
