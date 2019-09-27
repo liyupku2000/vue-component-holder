@@ -12,8 +12,6 @@
 
 # Introduction
 
-This plugin targets to combine the pros of synchronous and asynchronous component composing in vue. Synchronous composing is easy to use with a clear and explicit creating/mounting sequence. For example, in the parent's mounted() hook, it is ensured that all the child components have been created and mounted, so you can gather data/status/infomation from them. However, pure synchronous composing creates a single bundle file for your project, which could be potentially very large. Asynchronous composing solves this problem by partitioning the bundle file into some smaller chunks and loads them on demand, but it is fairly hard to handle asynchronous data and components. For example, the parent component has difficulty getting the exact moment when all the asynchronous children are ready. Another example is that it is hardly possible waiting for critical asynchronized data before/during creating components* because vue does not support asynchronized hooks. To solve such kind of problems, people have to use a lot of events between the parent and children which makes the code very verbose and hard to maintain, especially when the component tree is wide and deep.
-
 This plugin introduces a component place-holder machanism. It places a holder component at the original place of each child component and manages the creation/mounting/destroy of child components by the plugin itself. Each of these child components becomes something called "mvm" (managed vm). If vue adds/deletes/updates the holder components, the plugin applies the same changes on the mvms. Since the mvms are totally controlled by the plugin, it is possible to inject some (asynchronized) custom hooks before and after their creation and mounting, which makes it handy to deal with asynchronous data. For example, this plugin injects an "asyncData" hook for every mvm, not only for page components as Nuxt.
 
 To tag a child component as an mvm, we wrap it with a place-holder component "vue-holder" as follows:
@@ -105,7 +103,7 @@ Please refer the [demo project](https://github.com/liyupku2000/vue-component-hol
 
 # Holdify
 
-If the child component is not in "v-for" loop(s), its holdify is pretty straightforward. It only needs to move the child's template from the default slot to the template attribute on the wrapping vue-holder. Within loops, the child component could have multiple mvms and it needs to add some additional attributes on the vue-holder. For example, the "uid" attribute is used to identify different mvms, and the "vars" attribute is for passing local variables to the render function of the mvm. Please try to hodify your components on [Holdify Demo](https://github.com/liyupku2000/vue-component-holder).
+If the child component is not in "v-for" loop(s), its holdify is pretty straightforward. It only needs to move the child's template from the default slot to the template attribute on the wrapping vue-holder. Within loops, the child component could have multiple mvms and it needs to add some additional attributes on the vue-holder. For example, the "uid" attribute is used to identify different mvms, and the "vars" attribute is for passing local variables to the render function of the mvm. Please try to hodify your template on [Holdify Demo](https://github.com/liyupku2000/vue-component-holder).
 
 # Installation Options
 
