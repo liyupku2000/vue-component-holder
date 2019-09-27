@@ -7,7 +7,7 @@
 - [Introduction](#Introduction)
 - [Installation](#Installation)
 - [Holdify](#Holdify)
-- [Installation Options](#Installation_Options)
+- [Installation Options](#InstallationOptions)
 - [APIs and Hooks](#APIs\sand\sHooks)
 
 # Introduction
@@ -82,7 +82,7 @@ compilerModules: [{
 }]
 ```
 
-Install the plugin (details in [Installation Options](#Installation_Options)):
+Install the plugin (details in [Installation Options](#InstallationOptions)):
 
 ```js
 import Vue from 'vue'
