@@ -103,13 +103,21 @@ Please refer the [demo project](https://github.com/liyupku2000/vue-component-hol
 
 # Holdify
 
-If the child component is not in "v-for" loop(s), its holdify is pretty straightforward. It only needs to move the child's template from the default slot to the template attribute on the wrapping vue-holder. Within loops, the child component could have multiple mvms and it needs to add some additional attributes on the vue-holder. For example, the "uid" attribute is used to identify different mvms, and the "vars" attribute is for passing local variables to the render function of the mvm. Please try to hodify your template on [Holdify Demo](https://github.com/liyupku2000/vue-component-holder).
+If the child component is in "v-for" loop(s), it could have multiple mvm instances. In this case, the holdify function will add more attributes on the wrapping "vud-holder". For example, the "uid" attribute is used to identify different mvms, and the "vars" attribute is for passing local variables to the render function of the mvm. Please view our holdify examples or try it yourself on [Holdify Demo](https://github.com/liyupku2000/vue-component-holder).
 
 # Installation Options
 
 **globalHolderMixin**
 
-This option is default to "true". If it is set as "false", you need to setup "HolderMixin" manually in those components which are using "vue-holder" or wrapped by "vue-holder".
+This option is default to "true". If it is "false", you need to setup "HolderMixin" manually in those components which are using "vue-holder" or wrapped by "vue-holder".
+
+```js
+/** MyParentComponent.vue */
+import { HolderMixin } from 'vue-compoent-holder'
+export default {
+  mixins: [ HolderMixin /* more mixins*/ ]
+}
+```
 
 ```js
 /** MyChildComponent.vue */
