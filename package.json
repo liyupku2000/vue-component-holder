@@ -9,9 +9,10 @@
   },
   "keywords": [
     "vue",
-    "component holder",
-    "managed component",
-    "asynchronized hooks"
+    "component placeholder",
+    "managed vm",
+    "asynchronized hooks",
+    "custom hooks"
   ],
   "author": "Yu Li <liyupku2000@gmail.com> (https://github.com/liyupku2000)",
   "license": "MIT",

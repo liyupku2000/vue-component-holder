@@ -12,9 +12,9 @@
 
 # Introduction
 
-This plugin introduces a component place-holder machanism. It places a holder component at the original place of each child component and manages the creation/mounting/destroy of child components by the plugin itself. Each of these child components becomes an "mvm" (managed vm). If vue adds/deletes/updates the holder components, the plugin applies the same changes on the mvms. Since the mvms are totally managed by the plugin, it is possible to inject some (asynchronized) custom hooks before and after their creation/mounting, which makes it handy to deal with asynchronous data. For example, this plugin injects an "asyncData" hook for every mvm, not only for page components as [Nuxt](https://nuxtjs.org/api/).
+This plugin introduces a component placeholder machanism. It places a holder component at the original place of each child component and manages the creation/mounting/destroy of child components by the plugin itself. Each of these child components becomes an "mvm" (managed vm). If vue adds/deletes/updates the holder components, the plugin applies the same changes on the mvms. Since the mvms are totally managed by the plugin, it is possible to inject some (asynchronized) custom hooks before and after their creation/mounting, which makes it handy to deal with asynchronous data. For example, this plugin injects an "asyncData" hook for every mvm, not only for page components as [Nuxt](https://nuxtjs.org/api/).
 
-To tag a child component as an mvm, we wrap it with a place-holder component "vue-holder" as follows:
+To tag a child component as an mvm, we wrap it with a placeholder component "vue-holder" as follows:
 
 ```html
 <!-- MyParentComponent.vue -->
