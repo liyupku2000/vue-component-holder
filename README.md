@@ -16,8 +16,8 @@ This plugin introduces a component place-holder machanism. It places a holder co
 
 To tag a child component as an mvm, we wrap it with a place-holder component "vue-holder" as follows:
 
-```js
-/** MyParentComponent.vue */
+```html
+<!-- MyParentComponent.vue -->
 <template>
 <div>
   <vue-holder name="MyFavoriteName">
@@ -145,7 +145,7 @@ export default {
 
 **$intf**
 
-**@Public-and-$publish**
+**@Public and $publish**
 
 **holdersUpdated**
 
