@@ -154,17 +154,22 @@ export default {
 Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder-demo) for their usage examples.
 
 **$intf**
+
 This function could retrieve the interface object of a specific mvm with the holder name and uid.
 
 **$publish (or @Public)**
+
 The "$publish" function is used to publish the properties of a mvm within its interface object.
 With [vue-class-component](https://github.com/vuejs/vue-class-component), you could publish a property of a mvm with the "@Public" decorator.
 
-**holdersUpdated**
+**mvmsUpdated**
+
 A hook, defined in the parent component, is called every time some mvm(s) are created/deleted/updated.
 
 **asyncData**
+
 A hook, defined in the child component, is called before an mvm is created, which helps to fetch async data.
 
 **fetch**
+
 A hook, defined in the child component, is called before an mvm is created, which helps to update stores.
