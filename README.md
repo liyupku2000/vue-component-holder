@@ -80,6 +80,26 @@ compilerModules: [{
 }]
 ```
 
+Or the following in vue.config.js:
+
+```js
+module.exports = {
+  chainWebpack: config => {
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+        .loader('vue-loader')
+        .tap(options => {
+            options.compilerModules = options.compilerModules || [];
+            options.compilerModules.push({
+              postTransformNode: require('vue-component-holder/holdify')()
+            })
+            return options
+        })
+  }
+}
+```
+
 Install the plugin (details in [Installation Options](#Installation-Options)):
 
 ```js
