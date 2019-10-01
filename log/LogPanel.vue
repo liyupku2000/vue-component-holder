@@ -6,18 +6,22 @@
 </template>
 
 <script>
-import { Component } from 'vue-property-decorator'
 import Vue from 'vue'
 
 Vue.use(require('vue-shortkey'))
 
-@Component({
+export default {
+  name: 'LogPanel',
+
   components: {
     LogPanelModal: () => import('./LogPanelModal.vue' /* webpackChunkName: 'LogPanelModal' */)
-  }
-})
-export default class LogPanel extends Vue {
-  showModal = false
+  },
+
+  data() {
+    return {
+      showModal: false
+    }
+  },
 }
 </script>
 

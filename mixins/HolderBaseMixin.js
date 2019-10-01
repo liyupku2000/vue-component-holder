@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import { Component, Mixins } from 'vue-property-decorator'
 import { installOptions } from '../install'
 import IntfMixin from '../intf/IntfMixin'
 import UniqueIdMixin from './UniqueIdMixin'
@@ -9,18 +7,12 @@ import { registerVueHooks, callHook, callAsyncHook, callAsyncHooks } from '../ut
 import { registerHolder } from '../utils/holder'
 import { printError } from '../utils/error'
 
-
 registerVueHooks([ 'registerHolders', 'initMvms', 'mvmsUpdated' ])
 
+export default {
+  name: 'HolderBaseMixin',
 
-@Component
-export default class HolderBaseMixin extends Mixins(
-  IntfMixin,
-  UniqueIdMixin,
-  AsyncDataMixin,
-  LogMixin,
-  Vue
-) {
+  mixins: [IntfMixin,  UniqueIdMixin, AsyncDataMixin, LogMixin],
 
   beforeCreate() {
     this._holder = {
@@ -31,36 +23,38 @@ export default class HolderBaseMixin extends Mixins(
       options: {},                // holder type options, indexed by holder type
       intfs: {}                   // mvm interfaces, indexed by reg name
     }
-  }
+  },
 
   beforeMount() {
     if (this.$options.registerHolders) {
       callRegisterHoldersHook(this)
     }
-  }
+  },
 
   mounted() {
     // trigger "initMvms" if this is the root of a vue-holder tree
     if ( containVueHolders(this) && !wrappedByVueHolder(this) ) {
       callInitMvmsHook(this)
     }
-  }
+  },
 
   beforeDestroy() {
     if (this._isVueHolderMvm) {
       this.$log('destroy')
     }
-  }
+  },
 
-  $intf (regName, ...uid) {
-    try {
-      const intf = this._holder.intfs[regName].get(uid)
-      if (intf.hasOwnProperty('$id')) {  // check mvm was inited correctly
-        return intf
+  methods: {
+    $intf (regName, ...uid) {
+      try {
+        const intf = this._holder.intfs[regName].get(uid)
+        if (intf.hasOwnProperty('$id')) {  // check mvm was inited correctly
+          return intf
+        }
+      } catch(err) {
+        const intfPath = [regName, ...uid]
+        printError(`${this.$idPath} cannot find intf '${intfPath}'\n ${err}`)
       }
-    } catch(err) {
-      const intfPath = [regName, ...uid]
-      printError(`${this.$idPath} cannot find intf '${intfPath}'\n ${err}`)
     }
   }
 }

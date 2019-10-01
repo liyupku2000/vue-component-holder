@@ -17,7 +17,7 @@
         </div>
 
         <div id="panel-footer">
-          <button class="btn btn-default" @click="save">
+          <button @click="save">
             Save
           </button>
           <button @click="close" v-shortkey="['esc']" @shortkey="close">
@@ -31,12 +31,11 @@
 </template>
 
 <script>
-import { Component } from 'vue-property-decorator'
 import logCategory from './logCategory'
-import Vue from 'vue'
 
-@Component
-export default class LogPanelModal extends Vue {
+export default {
+  name: 'LogPanelModal',
+
   data() {
     return {
       categories: logCategory.getAllCategories().map(cat => ({
@@ -44,16 +43,18 @@ export default class LogPanelModal extends Vue {
         active: logCategory.isActive(cat)
       }))
     }
-  }
+  },
 
-  save() {
-    const actives = this.categories.filter(cat => cat.active).map(cat => cat.title)
-    logCategory.updateActives(actives)
-    this.close()
-  }
+  methods: {
+    save() {
+      const actives = this.categories.filter(cat => cat.active).map(cat => cat.title)
+      logCategory.updateActives(actives)
+      this.close()
+    },
 
-  close() {
-    this.$emit('close')
+    close() {
+      this.$emit('close')
+    }
   }
 }
 </script>
