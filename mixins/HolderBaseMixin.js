@@ -10,7 +10,7 @@ import { registerHolder } from '../utils/holder'
 import { printError } from '../utils/error'
 
 
-registerVueHooks([ 'holdersRegister', 'holdersInitMvms', 'holdersUpdated' ])
+registerVueHooks([ 'registerHolders', 'initMvms', 'mvmsUpdated' ])
 
 
 @Component
@@ -34,15 +34,15 @@ export default class HolderBaseMixin extends Mixins(
   }
 
   beforeMount() {
-    if (this.$options.holdersRegister) {
-      callHoldersRegisterHook(this)
+    if (this.$options.registerHolders) {
+      callRegisterHoldersHook(this)
     }
   }
 
   mounted() {
-    // trigger initMvms if this is the root of a vue-holder tree
+    // trigger "initMvms" if this is the root of a vue-holder tree
     if ( containVueHolders(this) && !wrappedByVueHolder(this) ) {
-      initMvms(this)
+      callInitMvmsHook(this)
     }
   }
 
@@ -65,30 +65,30 @@ export default class HolderBaseMixin extends Mixins(
   }
 }
 
-export async function initMvms (vm) {
+export async function callInitMvmsHook (vm) {
   vm._isVueHolderMvm = true
 
   await callAsyncHooks(vm, installOptions.customHooks.preInitMvms)
   vm.$log('initMvms', 'before initMvms')
-  await callAsyncHook(vm, 'holdersInitMvms')
+  await callAsyncHook(vm, 'initMvms')
   vm.$log('initMvms', 'after initMvms')
   await callAsyncHooks(vm, installOptions.customHooks.postInitMvms)
 
-  callHoldersUpdatedHook(vm, { initializing: true })
+  callMvmsUpdatedHook(vm, { initializing: true })
   vm._holder.areMvmsInited = true
 }
 
-export function callHoldersUpdatedHook (vm, eventArgs) {
-  if (vm.$options.holdersUpdated) {
-    vm.$log('holdersUpdated', () => `holdersUpdated: ${JSON.stringify(eventArgs)}`);
-    callHook(vm, 'holdersUpdated', eventArgs);
+export function callMvmsUpdatedHook (vm, eventArgs) {
+  if (vm.$options.mvmsUpdated) {
+    vm.$log('mvmsUpdated', () => `mvmsUpdated: ${JSON.stringify(eventArgs)}`);
+    callHook(vm, 'mvmsUpdated', eventArgs);
   }
 }
 
-function callHoldersRegisterHook (vm) {
-  const holdersRegisterRes = callHook(vm, 'holdersRegister')
-  if (holdersRegisterRes) {
-    holdersRegisterRes.forEach(item => {
+function callRegisterHoldersHook (vm) {
+  const res = callHook(vm, 'registerHolders')
+  if (res) {
+    res.forEach(item => {
       if (Array.isArray(item)) {
         item.forEach(reg => registerHolder(vm, reg))
       } else {

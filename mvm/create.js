@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { initMvms } from '../mixins/HolderBaseMixin'
+import { callInitMvmsHook } from '../mixins/HolderBaseMixin'
 import { findVueHolderEl } from '../utils/holder'
 import { printError } from '../utils/error'
 import { registerVueHooks } from '../utils/hook'
@@ -63,7 +63,7 @@ async function createMvmByTemplate (vm, mvmReg) {
   if (!childVm) {
     throw new Error('child component is not created correctly')
   }
-  await initMvms(childVm)
+  await callInitMvmsHook(childVm)
 
   return Object.freeze(mvmReg.intf)
 }

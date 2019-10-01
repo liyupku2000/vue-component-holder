@@ -99,7 +99,7 @@ After installation, you can simply wrap your component in the template as follow
 </vue-holder>
 ```
 
-Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder) for more usage examples.
+Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder-demo) for more usage examples.
 
 # Holdify
 
@@ -151,12 +151,20 @@ export default {
 
 # APIs and Hooks
 
-**$intf**
+Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder-demo) for their usage examples.
 
-**@Public and $publish**
+**$intf**
+This function could retrieve the interface object of a specific mvm with the holder name and uid.
+
+**$publish (or @Public)**
+The "$publish" function is used to publish the properties of a mvm within its interface object.
+With [vue-class-component](https://github.com/vuejs/vue-class-component), you could publish a property of a mvm with the "@Public" decorator.
 
 **holdersUpdated**
+A hook, defined in the parent component, is called every time some mvm(s) are created/deleted/updated.
 
 **asyncData**
+A hook, defined in the child component, is called before an mvm is created, which helps to fetch async data.
 
 **fetch**
+A hook, defined in the child component, is called before an mvm is created, which helps to update stores.
