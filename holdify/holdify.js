@@ -104,7 +104,7 @@ function holdifyUid (holderNode, matches, adds) {
 }
 
 function holdifyVars (holderNode, vars) {
-  if (!holderNode.attrsMap[':vars']) {
+  if (!holderNode.attrsMap[':vars'] && vars.length) {
     var varsAttr = '{ ';
     varsAttr += vars.reverse().map(v =>
       '"' + v.name + '": "' + v.value.replace(/"/g, '\\"') + '"'
