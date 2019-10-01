@@ -123,7 +123,7 @@ Please refer the [demo project](https://github.com/liyupku2000/vue-component-hol
 
 # Holdify
 
-If the child component is in "v-for" loop(s), it could have multiple mvm instances. In this case, the holdify function will add more attributes on the placeholder component. For example, the "uid" attribute is added to identify different mvms, and the "vars" attribute is added to pass local variables to the mvm's render function. Please view our holdify examples or try it yourself on [Holdify Demo](https://github.com/liyupku2000/holdify-demo).
+If the child component is in "v-for" loop(s), it could have multiple mvm instances. In this case, the holdify function will add more attributes on the placeholder component. For example, the "uid" attribute is added to identify different mvms, and the "vars" attribute is added to pass local variables to the mvm's render function. Please view our holdify examples or try it yourself on [Holdify Demo](https://liyupku2000.github.io/holdify-demo/).
 
 # Installation Options
 
