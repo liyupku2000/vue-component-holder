@@ -10,6 +10,7 @@
 - [Installation Options](#Installation-Options)
 - [APIs and Hooks](#APIs-and-Hooks)
 
+
 # Introduction
 
 This plugin introduces a component placeholder machanism. A placeholder component replaces the original child component, and the plugin manages the creation/mounting/destroy of the child component by itself. This child component then becomes an "mvm" (managed vm). If vue updates the placeholder component, the plugin applies the same change to the mvm. Since the mvm is totally managed by the plugin, we could inject some (asynchronized) custom hooks before and after its creation, making it handy to work with asynchronous data. For example, this plugin injects an "asyncData" hook on each mvm to prefetch asynchronous data ([Nuxt](https://nuxtjs.org/api/) is only able to do it on page components).
@@ -57,6 +58,7 @@ export default {
 }
 </script>
 ```
+
 
 # Installation
 
@@ -121,9 +123,17 @@ After installation, you can simply wrap your component in the template:
 
 Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder-demo) for more usage examples.
 
+
 # Holdify
 
-If the child component is in "v-for" loop(s), it could have multiple mvm instances. In this case, the holdify function will add more attributes on the placeholder component. For example, the "uid" attribute is added to identify different mvms, and the "vars" attribute is added to pass local variables to the mvm's render function. Please view our holdify examples or try it yourself on [Holdify Demo](https://liyupku2000.github.io/holdify-demo/).
+**HTML Template**
+
+If the child component is in "v-for" loop(s), it could have multiple mvm instances. In this case, the "holdify" function will add more attributes on the placeholder component. For example, the "uid" attribute is added to identify different mvms, and the "vars" attribute is added to pass local variables to the mvm's render function. Please view our "holdify" examples or try it yourself on [Holdify Demo](https://liyupku2000.github.io/holdify-demo/).
+
+**JSX**
+
+Automatic "holdify" in JSX has not been implemented yet. To use "vue-holder" with JSX, you have to do manaul "holdify" by providing the neccessary attributes.
+
 
 # Installation Options
 
@@ -169,6 +179,7 @@ export default {
 }
 ```
 
+
 # APIs and Hooks
 
 Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder-demo) for their usage examples.
@@ -179,8 +190,7 @@ This function could retrieve the interface object of a specific mvm with the hol
 
 **$publish (or @Public)**
 
-The "$publish" function is used to publish the properties of a mvm within its interface object.
-With [vue-class-component](https://github.com/vuejs/vue-class-component), you could publish a property of a mvm with the "@Public" decorator.
+The "$publish" function is used to publish the properties of a mvm via its interface object. If working with [vue-class-component](https://github.com/vuejs/vue-class-component), you could also use the "@Public" decorator provided by the plugin.
 
 **mvmsUpdated**
 
