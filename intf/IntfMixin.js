@@ -11,8 +11,6 @@ Vue.config.optionMergeStrategies._publicKeys = function(toVal = [], fromVal = []
 }
 
 export default {
-  name: 'IntfMixin',
-
   props: {
     __intf: Object
   },
@@ -41,9 +39,9 @@ export default {
       }
     },
 
-    $setProxyIntf(proxyIntf) {
+    $setIntfProxy(proxy) {
       if (this.__intf) {
-        Object.assign(this.__intf, proxyIntf)
+        Object.assign(this.__intf, proxy)
       }
     }
   }

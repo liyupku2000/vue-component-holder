@@ -78,7 +78,7 @@ Add the following at webpack.config.js -> module.exports -> modules -> rules -> 
 
 ```js
 compilerModules: [{
-  postTransformNode: require('vue-compoent-holder/holdify')()
+  postTransformNode: require('vue-component-holder/holdify')()
 }]
 ```
 
@@ -106,7 +106,7 @@ Install the plugin (details in [Installation Options](#Installation-Options)):
 
 ```js
 import Vue from 'vue'
-import VueComponentHolder from 'vue-compoent-holder'
+import VueComponentHolder from 'vue-component-holder'
 
 Vue.use(VueComponentHolder, {
   // plugin options
@@ -132,7 +132,7 @@ If the child component is in "v-for" loop(s), it could have multiple mvm instanc
 
 **JSX**
 
-Automatic "holdify" in JSX has not been implemented yet. To use "vue-holder" with JSX, you have to do manaul "holdify" by providing the neccessary attributes.
+Automatic "holdify" in JSX has not been implemented yet. To use "vue-holder" with JSX, you have to do "holdify" manually by providing the neccessary attributes.
 
 
 # Installation Options
@@ -143,7 +143,7 @@ This option is default to "true". If it is "false", you need to setup "HolderMix
 
 ```js
 /** MyParentComponent.vue */
-import { HolderMixin } from 'vue-compoent-holder'
+import { HolderMixin } from 'vue-component-holder'
 export default {
   mixins: [ HolderMixin /* more mixins*/ ]
 }
@@ -151,7 +151,7 @@ export default {
 
 ```js
 /** MyChildComponent.vue */
-import { HolderMixin } from 'vue-compoent-holder'
+import { HolderMixin } from 'vue-component-holder'
 export default {
   mixins: [ HolderMixin /* more mixins*/ ]
 }
@@ -190,7 +190,7 @@ This function retrieves the interface object of a specific mvm with the holder n
 
 **$publish (or @Public)**
 
-The "$publish" function publishes the properties of a mvm via its interface object. If working with [vue-class-component](https://github.com/vuejs/vue-class-component), you could also use the "@Public" decorator.
+With the "$publish" function, an mvm reveals some functions via its interface object. If working with [vue-class-component](https://github.com/vuejs/vue-class-component), it could also use the "@Public" decorator.
 
 **mvmsUpdated**
 

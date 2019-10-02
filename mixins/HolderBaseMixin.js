@@ -10,8 +10,6 @@ import { printError } from '../utils/error'
 registerVueHooks([ 'registerHolders', 'initMvms', 'mvmsUpdated' ])
 
 export default {
-  name: 'HolderBaseMixin',
-
   mixins: [IntfMixin,  UniqueIdMixin, AsyncDataMixin, LogMixin],
 
   beforeCreate() {

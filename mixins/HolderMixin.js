@@ -4,8 +4,6 @@ import { udpateMvms, cleanMvms } from '../mvm'
 export const HOLDER_TYPE = 'Holder'
 
 export default {
-  name: 'HolderMixin',
-
   extends: HolderBaseMixin,
 
   async initMvms() {

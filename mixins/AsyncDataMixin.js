@@ -1,6 +1,4 @@
 export default {
-  name: 'AsyncDataMixin',
-
   props: {
     __asyncData: Object
   },

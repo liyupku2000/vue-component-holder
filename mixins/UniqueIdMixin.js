@@ -1,13 +1,11 @@
 let UNIQUE_ID = 0
 
 export default {
-  name: 'UniqueIdMixin',
-
   props: {
     __id: {
       type: String,
       default() {
-        const name = /*this && this.$options ? this.$options.name :*/ 'component'
+        const name = (this && this.$options.name) || 'component'
         return `${name}${UNIQUE_ID++}`
       }
     }
