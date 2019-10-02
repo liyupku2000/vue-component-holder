@@ -186,11 +186,11 @@ Please refer the [demo project](https://github.com/liyupku2000/vue-component-hol
 
 **$intf**
 
-This function could retrieve the interface object of a specific mvm with the holder name and uid.
+This function retrieves the interface object of a specific mvm with the holder name and uid.
 
 **$publish (or @Public)**
 
-The "$publish" function is used to publish the properties of a mvm via its interface object. If working with [vue-class-component](https://github.com/vuejs/vue-class-component), you could also use the "@Public" decorator provided by the plugin.
+The "$publish" function publishes the properties of a mvm via its interface object. If working with [vue-class-component](https://github.com/vuejs/vue-class-component), you could also use the "@Public" decorator.
 
 **mvmsUpdated**
 
