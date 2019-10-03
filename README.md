@@ -138,7 +138,7 @@ Automatic "holdify" in JSX has not been implemented yet. To use "vue-holder" wit
 # Plugin Configurations
 
 A "holder.config.js" file is used to configure the plugin. Place it at the same level with the "node_modules" folder where the plugin was installed.
-Normally, this configuration file should be placed in the project root folder.
+Normally, it should be placed in the project root folder.
 
 ```js
 /** holder.config.js */
