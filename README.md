@@ -7,7 +7,7 @@
 - [Introduction](#Introduction)
 - [Installation](#Installation)
 - [Holdify](#Holdify)
-- [Configurations](#Configurations)
+- [Configuration](#Configuration)
 - [APIs and Hooks](#APIs-and-Hooks)
 
 
@@ -135,7 +135,7 @@ If the child component is in "v-for" loop(s), it could have multiple mvm instanc
 Automatic "holdify" in JSX has not been implemented yet. To use "vue-holder" with JSX, you have to do "holdify" manually by providing the neccessary attributes.
 
 
-# Configurations
+# Configuration
 
 A "holder.config.js" file is used to configure the plugin. Place it at the same level with the "node_modules" folder where the plugin was installed.
 Normally, it should be placed in the project root folder.
@@ -143,7 +143,7 @@ Normally, it should be placed in the project root folder.
 ```js
 /** holder.config.js */
 module.exports = {
-  // plugin configurations
+  // plugin configs as below
 }
 ```
 
