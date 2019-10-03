@@ -77,14 +77,16 @@ yarn add vue-component-holder
 Add the following at webpack.config.js -> module.exports -> modules -> rules -> (vue) -> use -> options:
 
 ```js
-compilerModules: [{
-  postTransformNode: require('vue-component-holder/holdify')()
-}]
+/** webpack.config.js */
+        compilerModules: [{
+          postTransformNode: require('vue-component-holder/holdify')()
+        }]
 ```
 
 Or the following in vue.config.js:
 
 ```js
+/** vue.config.js */
 module.exports = {
   chainWebpack: config => {
     config.module
@@ -102,18 +104,16 @@ module.exports = {
 }
 ```
 
-Install the plugin (details in [Installation Options](#Installation-Options)):
+Install the plugin in the early stage of your project:
 
 ```js
 import Vue from 'vue'
 import VueComponentHolder from 'vue-component-holder'
 
-Vue.use(VueComponentHolder, {
-  // plugin options
-})
+Vue.use(VueComponentHolder)
 ```
 
-After installation, you can simply wrap your component in the template:
+After installation, you could simply wrap your component in the template:
 
 ```html
 <vue-holder name="YourFavoriteName">
@@ -135,11 +135,28 @@ If the child component is in "v-for" loop(s), it could have multiple mvm instanc
 Automatic "holdify" in JSX has not been implemented yet. To use "vue-holder" with JSX, you have to do "holdify" manually by providing the neccessary attributes.
 
 
-# Installation Options
+# Plugin Configurations
+
+A "holder.config.js" file is used to configure the plugin. Place it at the same level with the "node_modules" folder where the plugin was installed.
+Normally, this configuration file should be placed in the project root folder.
+
+```js
+/** holder.config.js */
+module.exports = {
+  // plugin configurations
+}
+```
 
 **globalHolderMixin**
 
 This option is default to "true". If it is "false", you need to setup "HolderMixin" manually as follows:
+
+```js
+/** holder.config.js */
+module.exports = {
+  globalHolderMixin: false
+}
+```
 
 ```js
 /** MyParentComponent.vue */
@@ -162,14 +179,17 @@ export default {
 You could inject asynchronized custom hooks in the parent component. They are partitioned into two groups: "preInitMvms" and "postInitMvms", indicating they are excuted before or after the mvms are initialized.
 
 ```js
-/** MyParentComponent.vue */
-Vue.use(VueComponentHolder, {
+/** holder.config.js */
+module.exports = {
   customHooks: {
     preInitMvms: [ 'beforeInit' ],
     postInitMvms: [ 'inited' ]
   }
-})
+}
+```
 
+```js
+/** MyParentComponent.vue */
 export default {
   async beforeInit() {
   },

@@ -1,4 +1,4 @@
-import { installOptions } from '../install'
+import pluginConfigs from '../configs'
 import IntfMixin from '../intf/IntfMixin'
 import UniqueIdMixin from './UniqueIdMixin'
 import LogMixin from '../log/LogMixin'
@@ -60,11 +60,11 @@ export default {
 export async function callInitMvmsHook (vm) {
   vm._isVueHolderMvm = true
 
-  await callAsyncHooks(vm, installOptions.customHooks.preInitMvms)
+  await callAsyncHooks(vm, pluginConfigs.customHooks.preInitMvms)
   vm.$log('initMvms', 'before initMvms')
   await callAsyncHook(vm, 'initMvms')
   vm.$log('initMvms', 'after initMvms')
-  await callAsyncHooks(vm, installOptions.customHooks.postInitMvms)
+  await callAsyncHooks(vm, pluginConfigs.customHooks.postInitMvms)
 
   callMvmsUpdatedHook(vm, { initializing: true })
   vm._holder.areMvmsInited = true

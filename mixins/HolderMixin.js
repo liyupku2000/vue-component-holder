@@ -11,7 +11,7 @@ export default {
   },
 
   async updated() {
-    if (this._holder.mvmRegs[HOLDER_TYPE]) {
+    if (this._holder.areMvmsInited && this._holder.mvmRegs[HOLDER_TYPE]) {
       const updatedHolders = await udpateMvms(this, HOLDER_TYPE)
       if (updatedHolders.length) {
         callMvmsUpdatedHook(this, { updatedHolders })
