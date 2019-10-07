@@ -17,7 +17,7 @@ This plugin introduces a component placeholder machanism. A placeholder componen
 
 ![Component Tree and Mvm Tree](https://github.com/liyupku2000/vue-component-holder/blob/master/.readme/mvm-tree.png)
 
-.center[Component Tree and Mvm Tree]
+*Component Tree and Mvm Tree*
 
 To declare an mvm, just wrap a child component with "vue-holder" as follows:
 
@@ -205,7 +205,7 @@ export default {
 
 ![](https://github.com/liyupku2000/vue-component-holder/blob/master/.readme/hooks-calling-seq.png)
 
-.center[The Hook Calling Sequence after the injection of beforeInit and inited]
+*The Hook Calling Sequence after the injection of beforeInit and inited*
 
 
 # APIs and Hooks
