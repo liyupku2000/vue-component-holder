@@ -18,9 +18,9 @@ function registerVueHooks(names, strat) {
 function callHook (vm, name, ...args) {
   if (!vm._isDestroyed) {
     const hooks = vm.$options[name]
-    vm.$log('all hooks', `call ${name}()`);
+    vm.$log('hooks all', `call ${name}()`);
     if (hooks) {
-      vm.$log('declared hooks', `call ${name}()`);
+      vm.$log('hooks declared', `call ${name}()`);
       return hooks.map( hook => hook.apply(vm, args) )
     }
   }
@@ -29,9 +29,9 @@ function callHook (vm, name, ...args) {
 async function callAsyncHook (vm, name, ...args) {
   if (!vm._isDestroyed) {
     const hooks = vm.$options[name]
-    vm.$log('all hooks', `await ${name}()`);
+    vm.$log('hooks all', `await ${name}()`);
     if (hooks) {
-      vm.$log('declared hooks', `await ${name}()`);
+      vm.$log('hooks declared', `await ${name}()`);
       return Promise.all(
         hooks.map( hook => hook.apply(vm, args) )
       )

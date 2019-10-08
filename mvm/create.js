@@ -36,8 +36,8 @@ async function createMvmByTemplate (vm, mvmReg) {
   const vars = makeTemplateVars(mvmReg)
   const { ctorTag, tagExp } = parseCreatorTag(vm, template, vars, uid)
   const ctor = await makeCreator(vm, ctorTag)
-  await callMvmFetch(vm, ctor.options.fetch)
-  const asyncData = await callMvmAsyncData(vm, ctor.options.asyncData)
+  await callMvmFetch(vm, id, ctor.options.fetch)
+  const asyncData = await callMvmAsyncData(vm, id, ctor.options.asyncData)
 
   const finalRenderCode = formalizeRenderCode(vm, renderCode, id, { ctorTag, tagExp }, vars)
   const renderFn = new Function('__ctor', '__reg', '__uid', '__asyncData', finalRenderCode)
@@ -157,13 +157,13 @@ function formalizeRenderCode (vm, renderCode, id, { ctorTag, tagExp }, vars) {
   }
 
   renderCode = renderCode.replace('with(this){', `with(this){${vars}`)
-  logRenderCode(vm, 'render fn', id, renderCode)
+  logRenderCode(vm, 'render functions', id, renderCode)
   renderCode = transpileRenderCode(renderCode)
     .replace(/_vm.__ctor/g, '__ctor')
     .replace(/_vm.__reg/g, '__reg')
     .replace(/_vm.__uid/g, '__uid')
     .replace(/_vm.__asyncData/g, '__asyncData')
-  logRenderCode(vm, 'transpiled render fn', id, renderCode)
+  logRenderCode(vm, 'render functions transpiled', id, renderCode)
   return renderCode
 }
 
@@ -185,18 +185,22 @@ function logRenderCode (vm, logCategory, id, renderCode) {
   vm.$log(logCategory, `${id}:\n${renderCode}`)
 }
 
-async function callMvmFetch(vm, fetchFns) {
+async function callMvmFetch(parentVm, id, fetchFns) {
+  parentVm.$log('hooks all', `await fetch()`, id);
   if (fetchFns) {
+    parentVm.$log('hooks declared', `await fetch()`, id);
     await Promise.all(
-      fetchFns.map( f => f(vm) )
+      fetchFns.map( f => f(parentVm) )
     )
   }
 }
 
-async function callMvmAsyncData(vm, asyncDataFns) {
+async function callMvmAsyncData(parentVm, id, asyncDataFns) {
+  parentVm.$log('hooks all', `await asyncData()`, id);
   if (asyncDataFns) {
+    parentVm.$log('hooks declared', `await asyncData()`, id);
     const dataList = await Promise.all(
-      asyncDataFns.map( f => f(vm) )
+      asyncDataFns.map( f => f(parentVm) )
     )
     return dataList.reduce(
       (res, data) => Object.assign(res, data)

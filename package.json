@@ -1,6 +1,6 @@
 {
   "name": "vue-component-holder",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Inject asynchronized hooks on vue components",
   "main": "index.js",
   "repository": {

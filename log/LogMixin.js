@@ -2,7 +2,7 @@ import logCategory from './logCategory'
 
 export default {
   methods: {
-    $log (category, msg) {
+    $log (category, msg, attachedId) {
       if (process.env.NODE_ENV === 'development') {
         logCategory.register(category);
         if (logCategory.isActive(category)) {
@@ -10,7 +10,12 @@ export default {
           if (typeof msg === 'function') {
             msg = msg()
           }
-          console.log(`[${this.$idPath}] ${msg}`)
+
+          let idPath = this.$idPath
+          if (attachedId) {
+            idPath += '__' + attachedId
+          }
+          console.log(`[${idPath}] ${msg}`)
         }
       }
     }

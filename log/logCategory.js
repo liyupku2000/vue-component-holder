@@ -37,18 +37,13 @@ export default {
     return ACTIVES.has(cat)
   },
 
-  register(cats) {
-    if (typeof cats === 'string') {
-      cats = [ cats ]
-    }
-
-    if (Array.isArray(cats)) {
-      cats.forEach(cat => {
-        if (!CATEGORIES.includes(cat)) {
-          CATEGORIES.push(cat)
-          loadActivate(cat)
-        }
-      })
+  register(cat) {
+    if (typeof cat === 'string') {
+      if (!CATEGORIES.includes(cat)) {
+        CATEGORIES.push(cat)
+        CATEGORIES.sort()
+        loadActivate(cat)
+      }
     }
   }
 }
