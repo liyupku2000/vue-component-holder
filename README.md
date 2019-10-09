@@ -78,34 +78,41 @@ npm install vue-component-holder --save
 yarn add vue-component-holder
 ```
 
-Add the following at webpack.config.js -> module.exports -> modules -> rules -> (vue) -> use -> options:
-
-```js
-/** webpack.config.js */
-        compilerModules: [{
-          postTransformNode: require('vue-component-holder/holdify')()
-        }]
-```
-
-Or the following in vue.config.js:
+Add the following in vue.config.js:
 
 ```js
 /** vue.config.js */
 module.exports = {
+  // ...
+
   chainWebpack: config => {
     config.module
       .rule('vue')
       .use('vue-loader')
         .loader('vue-loader')
         .tap(options => {
-            options.compilerModules = options.compilerModules || [];
-            options.compilerModules.push({
-              postTransformNode: require('vue-component-holder/holdify')()
-            })
-            return options
-        })
+          options.compilerModules = options.compilerModules || [];
+          options.compilerModules.push({
+            postTransformNode: require('vue-component-holder/holdify')()
+          });
+          return options;
+        });
+
+    // Cache could skip the injected 'holdify' option
+    config.module
+      .rule('vue')
+      .uses.delete('cache-loader');
   }
 }
+```
+
+If you are using webpack.config.js, add the following at module.exports -> modules -> rules -> (vue) -> use -> options:
+
+```js
+/** webpack.config.js */
+    compilerModules: [{
+      postTransformNode: require('vue-component-holder/holdify')()
+    }]
 ```
 
 Install the plugin in the early stage of your project:
