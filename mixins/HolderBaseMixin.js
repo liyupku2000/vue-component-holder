@@ -6,8 +6,10 @@ import AsyncDataMixin from './AsyncDataMixin'
 import { registerVueHooks, callHook, callAsyncHook, callAsyncHooks } from '../utils/hook'
 import { registerHolder } from '../utils/holder'
 import { printError } from '../utils/error'
+import { VueHolderTags } from '../extend'
 
 registerVueHooks([ 'registerHolders', 'initMvms', 'mvmsUpdated' ])
+
 
 export default {
   mixins: [IntfMixin,  UniqueIdMixin, AsyncDataMixin, LogMixin],
@@ -30,8 +32,8 @@ export default {
   },
 
   mounted() {
-    // trigger "initMvms" if this is the root of a vue-holder tree
-    if ( containVueHolders(this) && !wrappedByVueHolder(this) ) {
+    // trigger "initMvms" if this is an mvm-tree root
+    if ( !wrappedByVueHolder(this) && containVueHolders(this) ) {
       callInitMvmsHook(this)
     }
   },
@@ -90,8 +92,18 @@ function callRegisterHoldersHook (vm) {
   }
 }
 
+const RENDER_FN_MAP = new Map()
+
 function containVueHolders(vm) {
-  return Object.keys(vm._holder.regs).length > 0
+  const renderFn = vm.$options.render.toString()
+  if (RENDER_FN_MAP.has(renderFn)) {
+    return RENDER_FN_MAP.get(renderFn)
+  } else {
+    const regex = new RegExp(`_c\\(["|']('${VueHolderTags.join('|')}')["|']`)
+    const foundVueHolderTag = renderFn.search(regex) >= 0
+    RENDER_FN_MAP.set(renderFn, foundVueHolderTag)
+    return foundVueHolderTag
+  }
 }
 
 function wrappedByVueHolder(vm) {

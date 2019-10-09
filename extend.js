@@ -2,13 +2,24 @@ import Vue from 'vue'
 import VueHolderBase from './VueHolderBase'
 import changeCase from 'change-case'
 
+const VueHolderTags = []
+
 // type is a Pasca-Case string
-export default function registerVueHolderExtension (type, moreProps) {
+function registerVueHolderExtension (type, moreProps) {
   const name = `Vue${type}`
-  Vue.component(changeCase.kebabCase(name), {
+  const kebabName = changeCase.kebabCase(name)
+
+  Vue.component(kebabName, {
     extends: VueHolderBase,
     name,
     type,
     props: moreProps
   })
+
+  VueHolderTags.push(name, kebabName)
+}
+
+export {
+  registerVueHolderExtension as default,
+  VueHolderTags
 }
