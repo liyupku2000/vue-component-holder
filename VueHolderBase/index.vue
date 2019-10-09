@@ -95,9 +95,7 @@ export default {
 function makeVhid (name, uid) {
   let r = `${name}`
   if (uid) {
-    r += '-' + Object.values(uid)
-      .map(i => i && i.toString().replace(/\W/g, ''))
-      .join('-')
+    r += '[' + Object.values(uid).join('][') +']'
   }
   return r
 }

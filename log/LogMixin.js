@@ -15,7 +15,7 @@ export default {
           if (attachedId) {
             idPath += '__' + attachedId
           }
-          console.log(`[${idPath}] ${msg}`)
+          console.log(`<<${idPath}>> ${msg}`)
         }
       }
     }
