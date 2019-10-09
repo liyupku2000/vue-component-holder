@@ -63,6 +63,8 @@ export default {
 </script>
 ```
 
+Please refer [vue-component-holder-demo](https://github.com/liyupku2000/vue-component-holder-demo) for more examples.
+
 
 # Installation
 
@@ -123,17 +125,6 @@ import VueComponentHolder from 'vue-component-holder'
 
 Vue.use(VueComponentHolder)
 ```
-
-After installation, you could simply wrap your component in the template:
-
-```html
-<vue-holder name="YourFavoriteName">
-  <MyChildComponent />
-</vue-holder>
-```
-
-Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder-demo) for more usage examples.
-
 
 # Holdify
 
@@ -217,7 +208,7 @@ export default {
 
 # APIs and Hooks
 
-Please refer the [demo project](https://github.com/liyupku2000/vue-component-holder-demo) for their usage examples.
+Please refer [vue-component-holder-demo](https://github.com/liyupku2000/vue-component-holder-demo) for examples.
 
 **$intf**
 
