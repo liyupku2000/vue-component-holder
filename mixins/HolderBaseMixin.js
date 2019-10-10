@@ -6,7 +6,6 @@ import AsyncDataMixin from './AsyncDataMixin'
 import { registerVueHooks, callHook, callAsyncHook, callAsyncHooks } from '../utils/hook'
 import { registerHolder } from '../utils/holder'
 import { printError } from '../utils/error'
-import { VueHolderTags } from '../extend'
 
 registerVueHooks([ 'registerHolders', 'initMvms', 'mvmsUpdated' ])
 
@@ -33,14 +32,12 @@ export default {
 
   mounted() {
     // trigger "initMvms" if this is an mvm-tree root
-    if ( !wrappedByVueHolder(this) && containVueHolders(this) ) {
-      callInitMvmsHook(this)
-    }
-  },
-
-  beforeDestroy() {
-    if (this._isVueHolderMvm) {
-      this.$log('destroy')
+    if (containVueHolders(this) ) {
+      if (!wrappedByVueHolder(this)) {
+        callInitMvmsHook(this)
+      }
+    } else {
+      this._holder.areMvmsInited = true
     }
   },
 
@@ -60,16 +57,13 @@ export default {
 }
 
 export async function callInitMvmsHook (vm) {
-  vm._isVueHolderMvm = true
-
   await callAsyncHooks(vm, pluginConfigs.customHooks.preInitMvms)
   vm.$log('initMvms', 'before initMvms')
   await callAsyncHook(vm, 'initMvms')
   vm.$log('initMvms', 'after initMvms')
-  await callAsyncHooks(vm, pluginConfigs.customHooks.postInitMvms)
-
-  callMvmsUpdatedHook(vm, { initializing: true })
   vm._holder.areMvmsInited = true
+  await callAsyncHooks(vm, pluginConfigs.customHooks.postInitMvms)
+  callMvmsUpdatedHook(vm, { initializing: true })
 }
 
 export function callMvmsUpdatedHook (vm, eventArgs) {
@@ -92,18 +86,8 @@ function callRegisterHoldersHook (vm) {
   }
 }
 
-const RENDER_FN_MAP = new Map()
-
 function containVueHolders(vm) {
-  const renderFn = vm.$options.render.toString()
-  if (RENDER_FN_MAP.has(renderFn)) {
-    return RENDER_FN_MAP.get(renderFn)
-  } else {
-    const regex = new RegExp(`_c\\(["|']('${VueHolderTags.join('|')}')["|']`)
-    const foundVueHolderTag = renderFn.search(regex) >= 0
-    RENDER_FN_MAP.set(renderFn, foundVueHolderTag)
-    return foundVueHolderTag
-  }
+  return Object.keys(vm._holder.regs).length > 0
 }
 
 function wrappedByVueHolder(vm) {

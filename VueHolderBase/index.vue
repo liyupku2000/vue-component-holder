@@ -9,8 +9,6 @@ import { registerMvm } from '../mvm'
 
 let UNIQUE_ID = 0
 
-const UNCOPIED_PROPS = ['name', 'uid', '__id', '__intf']
-
 export default {
   name: 'VueHolderBase',
 
@@ -71,8 +69,9 @@ export default {
       let reg = findHolderReg(parent, name) || registerHolder(parent, { name })
       reg.type = this.$options.type
 
+      const skippedProps = ['name', 'uid', '__id', '__intf']
       Object.keys(this.$options.props)
-      .filter(key => !UNCOPIED_PROPS.includes(key))
+      .filter(key => !skippedProps.includes(key))
       .forEach(key => {
         if (this[key] !== undefined) {
           reg[key] = this[key]
