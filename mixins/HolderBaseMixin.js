@@ -31,10 +31,9 @@ export default {
   },
 
   mounted() {
-    // trigger "initMvms" if this is an mvm-tree root
     if (containVueHolders(this)) {
-      if (!this._isMvmTreeRoot && !wrappedByVueHolder(this)) {
-        this._isMvmTreeRoot = true
+      // trigger "initMvms" if this is an mvm-tree root
+      if (!wrappedByVueHolder(this)) {
         callInitMvmsHook(this)
       }
     } else {
