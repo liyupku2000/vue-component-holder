@@ -32,7 +32,7 @@ export default {
 
   mounted() {
     // trigger "initMvms" if this is an mvm-tree root
-    if (containVueHolders(this) ) {
+    if (containVueHolders(this)) {
       if (!this._isMvmTreeRoot && !wrappedByVueHolder(this)) {
         this._isMvmTreeRoot = true
         callInitMvmsHook(this)
@@ -59,12 +59,16 @@ export default {
 
 export async function callInitMvmsHook (vm) {
   await callAsyncHooks(vm, pluginConfigs.customHooks.preInitMvms)
-  vm.$log('initMvms', 'before initMvms')
-  await callAsyncHook(vm, 'initMvms')
-  vm.$log('initMvms', 'after initMvms')
+
+  if (containVueHolders(vm)) {
+    vm.$log('initMvms', 'before initMvms')
+    await callAsyncHook(vm, 'initMvms')
+    vm.$log('initMvms', 'after initMvms')
+    callMvmsUpdatedHook(vm, { initializing: true })
+  }
   vm._holder.areMvmsInited = true
+
   await callAsyncHooks(vm, pluginConfigs.customHooks.postInitMvms)
-  callMvmsUpdatedHook(vm, { initializing: true })
 }
 
 export function callMvmsUpdatedHook (vm, eventArgs) {

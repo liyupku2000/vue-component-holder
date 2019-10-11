@@ -13,11 +13,19 @@
 
 # Introduction
 
-This plugin introduces a component placeholder machanism. A placeholder component replaces the original child component in the template, and the plugin creates/mounts/destroys the child component by itself. This child component then becomes an "mvm" (managed vm). If vue updates the placeholder, the plugin applies the same changes to the mvm. Since the mvm is totally managed by the plugin, it is possible to inject some (asynchronized) custom hooks before and after the creation. For example, an "asyncData" hook is injected into mvms to prefetch asynchronous data ([Nuxt](https://nuxtjs.org/api/) is only able to do it on page components).
+This plugin introduces a component placeholder machanism. A placeholder component replaces the original child component in the template, and the plugin creates/mounts/destroys the child component by itself. This child component then becomes an "mvm" (managed vm). If vue updates the placeholder, the plugin applies the same changes to the mvm. Since the mvm is totally managed by the plugin, it is possible to inject some (asynchronized) custom hooks before and after the creation. For example, the plugin injects an "asyncData" hook in each mvm to prefetch asynchronous data ([Nuxt](https://nuxtjs.org/api/) is only able to do it in page components).
 
 ![Component Tree and Mvm Tree](https://github.com/liyupku2000/vue-component-holder/blob/master/.readme/mvm-tree.png)
 
 *Component Tree and Mvm Tree*
+
+
+It also supports user-defined hooks. The graph below shows the calling sequence with two user-defined hooks:
+
+![](https://github.com/liyupku2000/vue-component-holder/blob/master/.readme/hooks-calling-seq.png)
+
+*The Calling Sequence with user-defined "beforeInit" and "inited" hooks*
+
 
 To declare an mvm, just wrap a child component with "vue-holder" as follows:
 
@@ -100,7 +108,7 @@ module.exports = {
           return options;
         });
 
-    // Cache could skip the injected 'holdify' option
+    // Cache may cause the injected 'holdify' option skipped
     config.module
       .rule('vue')
       .uses.delete('cache-loader');
@@ -200,11 +208,6 @@ export default {
   }
 }
 ```
-
-![](https://github.com/liyupku2000/vue-component-holder/blob/master/.readme/hooks-calling-seq.png)
-
-*The Hook Calling Sequence after the injection of beforeInit and inited*
-
 
 # APIs and Hooks
 
