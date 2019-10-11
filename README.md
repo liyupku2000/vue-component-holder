@@ -213,16 +213,6 @@ export default {
 
 Please refer [vue-component-holder-demo](https://github.com/liyupku2000/vue-component-holder-demo) for examples.
 
-**registerHolders**
-
-A hook, defined in the parent component, is used for registering holders manually. Normally, a holder is automatically registered by the 'vue-holder' component. However, if "vue-holder" is defined in "v-if" or "v-for", the parent component may not be able to detect it at run time. In this case, we need to register it manually as follows:
-
-```js
-registerHolders() {
-  return { name: 'MyFavoriteHolderName' };
-}
-```
-
 **mvmsUpdated**
 
 A hook, defined in the parent component, is called everytime there are some mvms created/deleted/updated.
@@ -242,3 +232,29 @@ This function retrieves the interface object of a specific mvm with the holder n
 **$publish (or @Public)**
 
 With the "$publish" function, an mvm reveals some functions via its interface object. If working with [vue-class-component](https://github.com/vuejs/vue-class-component), it could also use the "@Public" decorator.
+
+**registerHolders**
+
+A hook, defined in the parent component, is used for registering holders manually. Normally, a holder is automatically registered in the "created" hook of the 'vue-holder' component. However, if a "vue-holder" component is defined in "v-if" or "v-for", the parent component may not be able to perceive it at run time. This may prevent an mvm root from calling its user-defined hooks. In this case, we need to register it manually as follows.
+
+```js
+<!-- MyMvmRootComponent.vue -->
+<template>
+<div>
+  <div v-if="isDataLoaded">
+    <vue-holder name="MyFavoriteHolderName">
+      <MyChildComponent />
+    </vue-holder>
+  </div>
+</template>
+
+<script>
+export default {
+  // ...
+  registerHolders() {
+    return { name: 'MyFavoriteHolderName' };
+  },
+  // ...
+}
+</script>
+```
