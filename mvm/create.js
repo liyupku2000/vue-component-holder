@@ -36,6 +36,9 @@ async function createMvmByTemplate (vm, mvmReg) {
   const vars = makeTemplateVars(mvmReg)
   const { ctorTag, tagExp } = parseCreatorTag(vm, template, vars, uid)
   const ctor = await makeCreator(vm, ctorTag)
+  if (!ctor) {
+    throw new Error(`cannot find component '${ctorTag}'`)
+  }
   await callMvmFetch(vm, id, ctor.options.fetch)
   const asyncData = await callMvmAsyncData(vm, id, ctor.options.asyncData)
 
@@ -133,7 +136,7 @@ function parseTag (template) {
 }
 
 async function makeCreator (vm, ctorTag) {
-  const def = vm.$options.components[ctorTag]
+  const def = findComponentDef(vm, ctorTag)
   if (typeof def === 'function') {
     if (def.options && def.component) { // vue component
       return Vue.extend(def);
@@ -145,6 +148,15 @@ async function makeCreator (vm, ctorTag) {
     return Vue.extend(def);
   } else {                              // global component
     return Vue.options.components[ctorTag];
+  }
+
+  function findComponentDef(vm, tag) {
+    for(; vm; vm = vm.$parent) {
+      const def = vm.$options.components[tag]
+      if (def) {
+        return def
+      }
+    }
   }
 }
 
